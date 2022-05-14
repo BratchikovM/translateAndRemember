@@ -1,0 +1,11 @@
+public
+src/styles
+src/media
+src/queriesAndMutations
+src/serviceWorker.js
+src/stories
+src/utils
+src/index.scss
+src/index.js
+src/pages/main-container/pages/trade/chart-and-side-panel/chart-block/chart/charting-library
+node_modules
