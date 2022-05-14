@@ -26,8 +26,8 @@ document.addEventListener('click', () => {
   }
 })
 
-// document.addEventListener('selectionchange', () => {
-//   if (getSelectedText().length === 0) {
-//     setMarkerPosition({ display: 'none' })
-//   }
-// })
+document.addEventListener('selectionchange', () => {
+  if (getSelectedText().length === 0) {
+    setMarkerPosition({})
+  }
+})
