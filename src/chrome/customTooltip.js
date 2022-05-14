@@ -77,7 +77,6 @@ class PointerCustom extends HTMLElement {
     this.shadowRoot
       .getElementById('translateIcon')
       .addEventListener('click', async () => {
-        console.log('window.getSelection().toString()', window.getSelection().toString())
         const { data } = await yandexTranslate({
           sourceLanguageCode: 'en',
           text: window.getSelection().toString(),
