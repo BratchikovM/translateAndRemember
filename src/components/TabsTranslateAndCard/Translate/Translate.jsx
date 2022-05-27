@@ -3,6 +3,7 @@ import { Space } from 'antd'
 import { Translator } from './Translator/Translator'
 import { Translation } from './Translation/Translation'
 import { yandexTranslate } from '../../../service/yandexApi'
+import { indexedDb } from '../../../indexedDb/db'
 
 export const Translate = () => {
   const [translateText, setTranslateText] = useState('')
@@ -15,6 +16,24 @@ export const Translate = () => {
         text: translateText,
       })
       setTranslatedText(data.translations[0].text)
+
+      if (translateText.split(' ').length > 3) {
+        return
+      }
+
+      try {
+        const newId = await indexedDb.remember.add({
+          sourceText: translateText,
+          translationText: data.translations[0].text,
+          sourceLang: 'en',
+          translateLang: 'ru',
+          correctAnswers: 0,
+        })
+
+        console.log('newId', newId)
+      } catch (e) {
+        console.error(`Error adding translateText: ${e.message || e}`)
+      }
     })()
   }, [translateText])
 
