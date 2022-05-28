@@ -1,4 +1,5 @@
 import instance from '../axios-api'
+import config from '../config'
 
 export const yandexTranslate = ({
   sourceLanguageCode,
@@ -13,8 +14,5 @@ export const yandexTranslate = ({
     },
   }
 
-  return instance.get(
-    'https://functions.yandexcloud.net/d4ebnestevp33tcpo5tq',
-    body,
-  )
+  return instance.get(config.yandexFunction, body)
 }
