@@ -2,7 +2,7 @@ import React, {
   useCallback, useEffect, useMemo, useRef, useState,
 } from 'react'
 import {
-  Input, Row, Col, Skeleton, Space, Typography, Button, Empty,
+  Input, Row, Col, Skeleton, Space, Typography, Button, Empty, message,
 } from 'antd'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { indexedDb } from '../../../indexedDb/db'
@@ -36,13 +36,14 @@ export const Cards = () => {
   const onCheckTranslate = useCallback(() => {
     const currentWord = cachedArrayWords[currentIndexCard]
 
-    if (currentWord.translationText === valueInput) {
+    if (currentWord.translationText.toLowerCase() === valueInput.toLowerCase() && !isShowCorrectAnswer) {
+      message.success(`${currentWord.sourceText}: ${currentWord.translationText}`, 0.8)
       indexedDb.remember.update(currentWord.sourceText, { correctAnswers: currentWord.correctAnswers + 1 })
       onNextWord()
     } else {
       setErrorAnswer(errorAnswer + 1)
     }
-  }, [currentIndexCard, cachedArrayWords, errorAnswer, onNextWord, valueInput])
+  }, [currentIndexCard, cachedArrayWords, errorAnswer, onNextWord, valueInput, isShowCorrectAnswer])
 
   const renderBody = useMemo(() => {
     if (cachedArrayWords && cachedArrayWords.length > 0 && currentIndexCard < cachedArrayWords.length) {
