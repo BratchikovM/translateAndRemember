@@ -1,5 +1,5 @@
 const config = {
-  yandexToken: process.env.IAM,
+  yandexFunction: process.env.REACT_APP_YANDEX_FUNCTION,
 }
 
 export default config
