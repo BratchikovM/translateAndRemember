@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Space } from 'antd'
 import { Translator } from './Translator/Translator'
 import { Translation } from './Translation/Translation'
@@ -22,27 +22,18 @@ export const Translate = () => {
       }
 
       try {
-        const newId = await indexedDb.remember.add({
+        await indexedDb.remember.add({
           sourceText: translateText,
           translationText: data.translations[0].text,
           sourceLang: 'en',
           translateLang: 'ru',
           correctAnswers: 0,
         })
-
-        console.log('newId', newId)
       } catch (e) {
         console.error(`Error adding translateText: ${e.message || e}`)
       }
     })()
   }, [translateText])
-
-  useEffect(() => {
-    // eslint-disable-next-line no-undef
-    chrome?.storage?.sync?.get('text', ({ text }) => {
-      console.log('text', text)
-    })
-  }, [])
 
   return (
     <Space direction="vertical">

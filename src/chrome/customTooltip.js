@@ -1,4 +1,5 @@
 import { yandexTranslate } from '../service/yandexApi'
+import { TYPES_MESSAGE } from '../const/typesMsg'
 
 const template = `
   <button id="translateIcon">
@@ -77,14 +78,21 @@ class PointerCustom extends HTMLElement {
     this.shadowRoot
       .getElementById('translateIcon')
       .addEventListener('click', async () => {
+        const selectedText = window.getSelection().toString()
+
         const { data } = await yandexTranslate({
           sourceLanguageCode: 'en',
-          text: window.getSelection().toString(),
+          text: selectedText,
         })
         this.styleElement.textContent = styled({
           left: this.left, top: this.top, hiddenTranslateIcon: true,
         })
-        console.log('data', data)
+
+        chrome.runtime.sendMessage({
+          type: TYPES_MESSAGE.translate,
+          selectedText,
+          translatedText: data.translations[0].text,
+        })
 
         this.shadowRoot
           .getElementById('translateTooltip')
@@ -92,7 +100,7 @@ class PointerCustom extends HTMLElement {
       })
   }
 
-  attributeChangedCallback(name, oldValue, newValue) {
+  attributeChangedCallback(name) {
     if (name === 'markerPosition') {
       const position = this.markerPosition
 

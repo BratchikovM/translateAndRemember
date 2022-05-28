@@ -47,6 +47,5 @@ module.exports = {
     'react/jsx-props-no-spreading': [0],
     'react/jsx-indent': [1],
     'no-unused-expressions': [0],
-    'max-params': ['error', 2],
   },
 }
