@@ -5,7 +5,12 @@ import {
 
 const { Search } = Input
 
-export const Translator = ({ searchValue, onSetSearchValue, onTranslating = () => {} }) => {
+export const Translator = ({
+  searchValue,
+  onSetSearchValue,
+  onTranslating = () => {},
+  isLoading = false,
+}) => {
   const inputRef = useRef()
 
   useEffect(() => {
@@ -20,6 +25,7 @@ export const Translator = ({ searchValue, onSetSearchValue, onTranslating = () =
             value={searchValue}
             onPressEnter={onTranslating}
             allowClear
+            loading={isLoading}
             enterButton="Translate"
             size="large"
             onChange={onSetSearchValue}

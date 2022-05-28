@@ -1,12 +1,14 @@
 import React from 'react'
 import {
-  Row, Col, Typography,
+  Row, Col, Typography, Skeleton,
 } from 'antd'
 
 const { Text } = Typography
 
-export const Translation = ({ translatedText }) => (
+export const Translation = ({ translatedText, isLoading }) => (
   <>
+    {isLoading && <Skeleton />}
+
     {translatedText && (
       <>
         <Row>
