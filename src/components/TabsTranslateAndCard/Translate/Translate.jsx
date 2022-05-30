@@ -35,8 +35,8 @@ export const Translate = () => {
 
       try {
         await indexedDb.remember.add({
-          sourceText: translateText,
-          translationText: result.translations[0].text,
+          sourceText: translateText.trim(),
+          translationText: result.translations[0].text.trim(),
           sourceLang: 'en',
           translateLang: 'ru',
           correctAnswers: 0,
