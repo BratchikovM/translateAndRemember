@@ -16,8 +16,8 @@ chrome.contextMenus.onClicked.addListener((itemData) => {
 chrome.runtime.onMessage.addListener((message) => {
   if (TYPES_MESSAGE.translate === message.type && message.selectedText.split(' ').length < 4) {
     indexedDb.remember.add({
-      sourceText: message.selectedText,
-      translationText: message.translatedText,
+      sourceText: message.selectedText.trim(),
+      translationText: message.translatedText.trim(),
       sourceLang: 'en',
       translateLang: 'ru',
       correctAnswers: 0,
