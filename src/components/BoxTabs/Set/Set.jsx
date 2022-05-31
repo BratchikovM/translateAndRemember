@@ -35,6 +35,7 @@ export const Set = () => {
         })
         onNotification({ type: 'success', message: 'Success!', description: 'Saving was successful' })
       } catch (e) {
+        console.error(`Error adding word: ${e.message || e}`)
         onNotification({
           type: 'error',
           message: 'Error adding',
