@@ -2,9 +2,10 @@ import React, {
   useState, useEffect, useRef, useCallback,
 } from 'react'
 import {
-  Row, Col, Space, Input, Button, Typography, notification,
+  Row, Col, Space, Input, Button, Typography,
 } from 'antd'
 import { indexedDb } from '../../../indexedDb/db'
+import CustomNotification from '../../Notification/CustomNotification'
 
 export const Set = () => {
   const [word, setWord] = useState('')
@@ -12,15 +13,6 @@ export const Set = () => {
   const [isLoadingSave, setIsLoadingSave] = useState(false)
 
   const inputRef = useRef()
-
-  const onNotification = ({ type, message, description }) => {
-    notification[type]({
-      message,
-      description,
-      duration: 1.5,
-      maxCount: 1,
-    })
-  }
 
   const onSave = useCallback(() => {
     (async () => {
@@ -33,10 +25,10 @@ export const Set = () => {
           translateLang: 'ru',
           correctAnswers: 0,
         })
-        onNotification({ type: 'success', message: 'Success!', description: 'Saving was successful' })
+        CustomNotification({ type: 'success', message: 'Success!', description: 'Saving was successful' })
       } catch (e) {
         console.error(`Error adding word: ${e.message || e}`)
-        onNotification({
+        CustomNotification({
           type: 'error',
           message: 'Error adding',
           description: 'Couldn\'t add a word, try again.',
